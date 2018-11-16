@@ -1,0 +1,82 @@
+{
+    "name": "note",
+    "displayName": "save-spark-note",
+    "description": "save note from email",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.29.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.savenote"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.savenote",
+                "title": "savenote",
+                "icon": {
+                    "dark": "./icon/darkSend.svg",
+                    "light": "./icon/liaghtSend.svg"
+                }
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "extension.savenote",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "savenote",
+            "properties": {
+                "savenote.emailsite": {
+                    "type": "string",
+                    "default": "",
+                    "description": "your email site"
+                },
+                "savenote.emailtype": {
+                    "type": "string",
+                    "default": "qq",
+                    "description": "your email type"
+                },
+                "savenote.smtpport": {
+                    "type": "number",
+                    "default": 465,
+                    "description": "your email smtp port"
+                },
+                "savenote.smtppassword": {
+                    "type": "string",
+                    "default": "",
+                    "description": "your email smtp password"
+                },
+                "savenote.emailtitle": {
+                    "type": "string",
+                    "default": "spark note",
+                    "description": "your email title"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21",
+        "eslint": "^4.11.0",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "fs": "0.0.1-security",
+        "nodemailer": "^4.6.8"
+    }
+}
