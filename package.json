@@ -20,7 +20,7 @@
                 "title": "savenote",
                 "icon": {
                     "dark": "./icon/darkSend.svg",
-                    "light": "./icon/liaghtSend.svg"
+                    "light": "./icon/lightSend.svg"
                 }
             }
         ],
