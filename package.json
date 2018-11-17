@@ -7,6 +7,10 @@
     "engines": {
         "vscode": "^1.29.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/newPromise/save-spark-note"
+    },
     "categories": [
         "Other"
     ],
@@ -20,8 +24,8 @@
                 "command": "extension.savenote",
                 "title": "savenote",
                 "icon": {
-                    "dark": "./icon/darkSend.svg",
-                    "light": "./icon/lightSend.svg"
+                    "dark": "./icon/darkSend.png",
+                    "light": "./icon/lightSend.png"
                 }
             }
         ],
