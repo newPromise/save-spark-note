@@ -1,6 +1,7 @@
 {
     "name": "note",
     "displayName": "save-spark-note",
+    "publisher": "zhangningning",
     "description": "save note from email",
     "version": "0.0.1",
     "engines": {
