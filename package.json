@@ -18,7 +18,7 @@
         "onCommand:extension.savenote"
     ],
     "main": "./extension",
-    "icon": "./icon/icon.png",
+    "icon": "icon/title.png",
     "homepage": "https://github.com/newPromise/save-spark-note/blob/master/README.md",
     "contributes": {
         "commands": [
