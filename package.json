@@ -1,9 +1,9 @@
 {
     "name": "save-spark-note",
-    "displayName": "save spark note",
+    "displayName": "Save spark note",
     "publisher": "zhangningning",
     "description": "save note from email",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "engines": {
         "vscode": "^1.29.0"
     },

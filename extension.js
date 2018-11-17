@@ -1,14 +1,50 @@
 const vscode = require('vscode');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
-var workspace = vscode.workspace;
+const workspace = vscode.workspace;
 const window = vscode.window;
-var settings = workspace.getConfiguration('savenote');
+let settings = workspace.getConfiguration('savenote');
 let activeEditor = window.activeTextEditor;
-const { emailtype, emailsite, smtpport, smtppassword, emailtitle } = settings;
+let { emailtype, emailsite, smtpport, smtppassword, emailtitle } = settings;
+const supportEmail = ["qq"];
+const info = {
+    success: (msg) => {
+        window.showInformationMessage(msg);
+    },
+    error: (msg) => {
+        window.showErrorMessage(msg);
+    },
+    warning: (msg) => {
+        window.showWarningMessage(msg);
+    }
+};
+
+const testEmail = (email) => {
+    if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email)) {
+        info.warning("the email site is not correct");
+        return false;
+    } else {
+        return true;
+    }
+};
+
+
 
 function activate(context) {
+    workspace.onDidChangeConfiguration(function () {
+        settings = workspace.getConfiguration('savenote');
+        emailsite = settings.get("emailsite");
+        emailtype = settings.get("emailtype");
+        emailtitle = settings.get("emailtitle");
+        smtppassword = settings.get("smtppassword");
+        smtpport = settings.get("smtpport");
+    });
     let send = vscode.commands.registerCommand('extension.savenote', function () {
+        if (!testEmail(emailsite)) return;
+        if (!supportEmail.includes(emailtype)) {
+            info.warning(`emailtype ${emailtype} is not support`);
+            return;
+        }
         window.onDidChangeActiveTextEditor(function (editor) {
             if (editor) {
                 activeEditor = editor;
@@ -38,11 +74,13 @@ function activate(context) {
                         }
                     ]
                 };
-                transporter.sendMail(mailOptions, function(error, info){
+                transporter.sendMail(mailOptions, function(error, msg){
                     if(error){
-                        return console.log(error);
+                        info.error(`${error}`);
+                        info.warning("check your email site and smtp password is correct");
+                        return;
                     }
-                    vscode.window.showInformationMessage("send success"); 
+                    info.success(`save note to email<${emailsite}> success`);
                 });
             });
         }
