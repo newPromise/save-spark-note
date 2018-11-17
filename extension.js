@@ -2,29 +2,35 @@ const vscode = require('vscode');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 var workspace = vscode.workspace;
+const window = vscode.window;
 var settings = workspace.getConfiguration('savenote');
+let activeEditor = window.activeTextEditor;
 const { emailtype, emailsite, smtpport, smtppassword, emailtitle } = settings;
-// psiqbvilarbocaij
 
 function activate(context) {
     let send = vscode.commands.registerCommand('extension.savenote', function () {
-        var transporter = nodemailer.createTransport({
+        window.onDidChangeActiveTextEditor(function (editor) {
+            if (editor) {
+                activeEditor = editor;
+            }
+        });
+        const transporter = nodemailer.createTransport({
             service: emailtype,
-            port: smtpport, // SMTP 端口
-            secureConnection: true, // 使用 SSL
+            port: smtpport,
+            secureConnection: true,
             auth: {
                 user: emailsite,
                 pass: smtppassword
             }
         });
-        const path = vscode.window.visibleTextEditors[0].document.uri.path;
+        const path = activeEditor.document.uri.path;
         let emailFileName = path.includes("/") ? path.substr(path.lastIndexOf("/") + 1) : path;
         if (path) {
-            fs.readFile(path, () => {
+            fs.readFile(path, (data) => {
                 var mailOptions = {
-                    from: emailsite, // 发件地址
-                    to: emailsite, // 收件列表
-                    subject: emailtitle, // 标题
+                    from: emailsite,
+                    to: emailsite,
+                    subject: emailtitle,
                     attachments: [
                         {
                             filename: emailFileName,
@@ -36,7 +42,7 @@ function activate(context) {
                     if(error){
                         return console.log(error);
                     }
-                    vscode.window.showInformationMessage("发送成功"); 
+                    vscode.window.showInformationMessage("send success"); 
                 });
             });
         }
