@@ -1,3 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "savenote.emailsite": "250621458@qq.com",
+    "savenote.emailtitle": "spark note",
+    "savenote.emailtype": "qq",
+    "savenote.smtppassword": "rskqxfzvrfkrcahc",
 }

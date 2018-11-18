@@ -2,8 +2,8 @@
     "name": "save-spark-note",
     "displayName": "Save spark note",
     "publisher": "zhangningning",
-    "description": "save note from email",
-    "version": "0.0.13",
+    "description": "save note to email",
+    "version": "0.0.14",
     "engines": {
         "vscode": "^1.29.0"
     },
@@ -15,7 +15,8 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.savenote"
+        "onCommand:extension.savenote",
+        "onCommand:extension.saveFragment"
     ],
     "main": "./extension",
     "icon": "icon/title.png",
@@ -29,12 +30,22 @@
                     "dark": "./icon/darkSend.png",
                     "light": "./icon/lightSend.png"
                 }
+            },
+            {
+                "command": "extension.saveFragment",
+                "title": "save exciting code"
             }
         ],
         "menus": {
             "editor/title": [
                 {
                     "command": "extension.savenote",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "extension.saveFragment",
                     "group": "navigation"
                 }
             ]
@@ -67,6 +78,21 @@
                     "type": "string",
                     "default": "spark note",
                     "description": "your email title"
+                },
+                "savenote.saveFragDir": {
+                    "type": "string",
+                    "default": "",
+                    "description": "your save file dir path"
+                },
+                "savenote.saveFragFileName": {
+                    "type": "string",
+                    "default": "savenote.md",
+                    "description": "your save file name"
+                },
+                "savenote.saveFragFileType": {
+                    "type": "string",
+                    "default": "md",
+                    "description": "your save file type"
                 }
             }
         }
